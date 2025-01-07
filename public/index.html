@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Photo</title>
-    <!-- Load Supabase JS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
@@ -20,33 +19,45 @@
     </form>
 
     <script>
-        // Initialize the Supabase client
-        const supabaseUrl = 'https://gverjivsdovotdwirzme.supabase.co'; // Replace with your Supabase URL
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2ZXJqaXZzZG92b3Rkd2lyem1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUzMDYxNjcsImV4cCI6MjA1MDg4MjE2N30.uYT7wfg2A6kCufXxvCtMlbLTWES_fLKdt4JzRlE7VKs'; // Replace with your Supabase anon key
-        const supabas = supabase.createClient(supabaseUrl, supabaseKey);
-
-        // Log supabase to ensure it's initialized properly
-        console.log(supabas);
+        const supabaseUrl = 'https://gverjivsdovotdwirzme.supabase.co'; // Your Supabase URL
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2ZXJqaXZzZG92b3Rkd2lyem1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUzMDYxNjcsImV4cCI6MjA1MDg4MjE2N30.uYT7wfg2A6kCufXxvCtMlbLTWES_fLKdt4JzRlE7VKs'; // Your Supabase anon key
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         const form = document.getElementById('uploadForm');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
+            const name = formData.get('name');
             const file = formData.get('photo');
 
             try {
-                const { data, error } = await supabas.storage
-                    .from('photos')
+                // Upload photo to Supabase Storage
+                const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                    .from('photos') // Ensure this matches your bucket name
                     .upload(`photos/${file.name}`, file);
 
-                if (error) {
-                    throw error;
+                if (uploadError) {
+                    throw uploadError;
                 }
 
-                alert(`Photo uploaded successfully!`);
+                // Construct the URL to the uploaded photo
+                const photoUrl = `${supabaseUrl}/storage/v1/object/public/photos/${file.name}`;
+
+                // Insert the name and photo URL into a Supabase table
+                const { data: insertData, error: insertError } = await supabaseClient
+                    .from('photos') // Replace with your actual table name
+                    .insert([
+                        { name: name, photo_url: photoUrl }
+                    ]);
+
+                if (insertError) {
+                    throw insertError;
+                }
+
+                alert(`Photo and name uploaded successfully!`);
             } catch (error) {
-                console.error('Error uploading photo:', error);
+                console.error('Error uploading data:', error);
                 alert('Unexpected error occurred!');
             }
         });
