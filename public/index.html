@@ -28,7 +28,7 @@ form.addEventListener('submit', async (e) => {
 
     try {
         const { data, error } = await supabase.storage
-            .from('uploads')
+            .from('photos')
             .upload(`photos/${file.name}`, file);
 
         if (error) {
