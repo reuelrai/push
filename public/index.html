@@ -33,7 +33,7 @@
 
             try {
                 // Upload photo to Supabase Storage
-                const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                const { error: uploadError } = await supabaseClient.storage
                     .from('photos') // Ensure this matches your bucket name
                     .upload(`photos/${file.name}`, file);
 
@@ -41,21 +41,18 @@
                     throw uploadError;
                 }
 
-                // Construct the URL to the uploaded photo
-                const photoUrl = `${supabaseUrl}/storage/v1/object/public/photos/${file.name}`;
-
-                // Insert the name and photo URL into a Supabase table
+                // Insert the name into a Supabase table
                 const { data: insertData, error: insertError } = await supabaseClient
                     .from('photos') // Replace with your actual table name
                     .insert([
-                        { name: name, photo_url: photoUrl }
+                        { name: name }
                     ]);
 
                 if (insertError) {
                     throw insertError;
                 }
 
-                alert(`Photo and name uploaded successfully!`);
+                alert(`Name uploaded successfully!`);
             } catch (error) {
                 console.error('Error uploading data:', error);
                 alert('Unexpected error occurred!');
