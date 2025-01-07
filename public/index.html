@@ -21,33 +21,25 @@
     <script>
         const form = document.getElementById('uploadForm');
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const file = formData.get('photo');
 
-            try {
-                const response = await fetch('http://localhost:3000/upload', {
-                    // Update with your backend URL
-                    method: 'POST',
-                    body: formData,
-                });
+    try {
+        const { data, error } = await supabase.storage
+            .from('uploads')
+            .upload(`photos/${file.name}`, file);
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+        if (error) {
+            throw error;
+        }
 
-                const result = await response.json();
-                console.log("Backend response:", result); // Log the response for debugging
-
-                if (result.success) {
-                    alert(`Photo uploaded successfully! Uploaded by: ${result.name}`);
-                } else {
-                    alert(`Failed to upload photo: ${result.message}`);
-                }
-            } catch (error) {
-                console.error('Error uploading photo:', error);
-                alert('Unexpected error occurred!');
-            }
+        alert(`Photo uploaded successfully!`);
+    } catch (error) {
+        console.error('Error uploading photo:', error);
+        alert('Unexpected error occurred!');
+    }
         });
 
 
