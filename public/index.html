@@ -23,10 +23,10 @@
         // Initialize the Supabase client
         const supabaseUrl = 'https://gverjivsdovotdwirzme.supabase.co'; // Replace with your Supabase URL
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2ZXJqaXZzZG92b3Rkd2lyem1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUzMDYxNjcsImV4cCI6MjA1MDg4MjE2N30.uYT7wfg2A6kCufXxvCtMlbLTWES_fLKdt4JzRlE7VKs'; // Replace with your Supabase anon key
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        const supabas = supabase.createClient(supabaseUrl, supabaseKey);
 
         // Log supabase to ensure it's initialized properly
-        console.log(supabase);
+        console.log(supabas);
 
         const form = document.getElementById('uploadForm');
 
@@ -36,7 +36,7 @@
             const file = formData.get('photo');
 
             try {
-                const { data, error } = await supabase.storage
+                const { data, error } = await supabas.storage
                     .from('photos')
                     .upload(`photos/${file.name}`, file);
 
