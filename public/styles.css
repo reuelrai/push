@@ -28,26 +28,23 @@ body {
             text-align: center;
         }
 
-            select {
-        width: calc(100% - 20px);
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-        font-size: 16px;
-        outline: none;
-        transition: border 0.3s ease;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-            width: 100%;
-    }
+      select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s ease;
+    width: 100%;
+}
 
-    select:focus {
-        border-color: #fff;
-    }
+select:focus {
+    border-color: #fff;
+}
         label {
             display: block;
             margin-bottom: 10px;
