@@ -13,34 +13,13 @@
 
 <body>
     <form id="uploadForm" enctype="multipart/form-data">
-  <label for="userName">Select Your Name:</label>
-  <select id="userName" name="userName">
-    <option value="">--Select Your Name--</option>
-    <option value="Aayush Giri">Aayush Giri</option>
-    <option value="Aayusha Shresthacharya Baniya">Aayusha Shresthacharya Baniya</option>
-    <option value="Asmita Silwal">Asmita Silwal</option>
-    <option value="Avishek Sigel">Avishek Sigel</option>
-    <option value="Bhumi Pradhan">Bhumi Pradhan</option>
-    <option value="Bipin Dawadi">Bipin Dawadi</option>
-    <option value="Jenisha Shrestha">Jenisha Shrestha</option>
-    <option value="Mandip Shrestha">Mandip Shrestha</option>
-    <option value="Muskan Rajbanshi">Muskan Rajbanshi</option>
-    <option value="Nikita Chaudhary">Nikita Chaudhary</option>
-    <option value="Rakshya Shrestha">Rakshya Shrestha</option>
-    <option value="Rijan Rijal">Rijan Rijal</option>
-    <option value="Ritesh Chaudhary">Ritesh Chaudhary</option>
-    <option value="Reuel Rai">Reuel Rai</option>
-    <option value="Sakshyam Maharjan">Sakshyam Maharjan</option>
-    <option value="Samyog Sapkota">Samyog Sapkota</option>
-    <option value="Sandeep Lamichhane">Sandeep Lamichhane</option>
-    <option value="Shristi Budha Magar">Shristi Budha Magar</option>
-    <option value="Srestaa Shrestha">Srestaa Shrestha</option>
-    <option value="Sudip Bhandari">Sudip Bhandari</option>
-    <option value="Umang Magar">Umang Magar</option>
-  </select>
-  <!-- Add other form elements here -->
-  <button type="submit">Submit</button>
-</form>
+        <h1>Upload Your Wallpaper</h1>
+        <label for="name">Enter Your Real Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="photo">Choose a wallpaper:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
 
     <script>
         const supabaseUrl = 'https://gverjivsdovotdwirzme.supabase.co';
@@ -84,3 +63,4 @@
 </body>
 
 </html>
+
